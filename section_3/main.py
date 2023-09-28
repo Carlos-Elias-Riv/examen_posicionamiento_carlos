@@ -75,26 +75,34 @@ print(newcad)
 
 # word1 –transformar--> word2 desde la posicion=pos
 # neword es la palabra que se debe volver word2
-# def allposibleseq(word1, word2, pos, neword, pila):
-#     # caso base fracaso
-#     if pos >= len(word1):
-#         return []
-#     # caso base exito
-#     if neword== word2:
-#         return pila.operaciones
+def allposibleseqRec(word1, word2, pos, neword, pila, resp):
+    # caso base fracaso
+    if pos >= len(word1):
+        return 
+    # caso base exito
+    if neword == word2:
+        return resp.append(pila.operaciones)
 
-#     pila.append(word1[pos])
+    pila.push(word1[pos])
  
-#     # caso recursivo
-#     if pila.head == word2[pos]:
-#         # dos opciones por lo que hacemos copia de la pila
+    # caso recursivo
+    if pila.head == word2[pos]:
+        # dos opciones por lo que hacemos copia de la pila
+        pila1 = Stack()
+        pila1.copy(pila)
 
-#         # pop inmediatamente 
-#         neword += pila.pop()
+        # pop inmediatamente 
+        neword1 = neword + pila1.pop()
+        allposibleseqRec(word1, word2, pos +1, neword1, pila1, resp)
+
+        # espero encontrarme otra más adelante
+
+        allposibleseqRec(word1, word2, pos + 1, neword, pila, resp)
 
 
-#         return 0
-
+def allposibleseq(word1, word2):
+    pila = Stack()
+    return allposibleseqRec(word1, word2, 0, "",pila, [])
 
 
 
