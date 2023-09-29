@@ -24,7 +24,7 @@ porcentaje de mujeres que aplicaron a E: 67% porcentaje de hombres que aplicaron
 
 Esto ya nos empieza a contar una historia un poco más fidedigna, pero todavía no del todo.
 
-Falta lo más importante, *¿cuántos de los que aplican entran?*. Y podemos intentar contestar 
+Falta lo más importante, *¿cuántos de los que aplican entran?* Y podemos intentar contestar 
 eso por facultad con el número de admisiones por facultad y las dos siguientes gráficas son
 útiles:
 
