@@ -50,8 +50,16 @@ la facultad A pues es en esta donde el porcentaje de admisión de mujeres
 es 82% en contraste con el de los hombres donde solo es de 62 % es decir una 
 diferencia de 20 %. Pero fuera de esta las demás facultades no cuentan con tanto
 sesgo, con 8%, 4%, 3% y hasta 2% de diferencia. Y en promedio el porcentaje
-de aceptación de hombres es de 44 % y el de las mujeres es 48 %. Así que en promedio
-la admisión sí está sesgada. Y las siguientes gráficas nos ayudan a visualizar las 
+de aceptación de hombres es de 44 % y el de las mujeres es 48 %. Por otro lado
+si no consideramos por facultad, el total de admitidos hombres fue de 1158
+lo cual nos dice que el 44% de los hombres fueron admitidos, mientras que con las
+mujeres, 557 fueron admitidas es decir el 30 %.
+Así que en promedio, considerando por facultad, la admisión sí está sesgada. Pero
+si consideramos del total, la admisión está sesgada hacia los hombres, pues 
+si eres hombre (sin considerar ninguna facultad) tienes 44 % de probabilidad de
+ser admitido mientras que en las mujeres esta probabilidad se reduce a 30 %. 
+Pero al momento de ver por facultad, este porcentaje cambia drásticamente.
+Y las siguientes gráficas nos ayudan a visualizar las 
 proporciones mencionadas: 
 
 <img src="https://github.com/Carlos-Elias-Riv/examen_posicionamiento_carlos/blob/main/section_4/%23proporcionesdeadmisionporgeneroporfacultad.png" width="550" height="500"/>
