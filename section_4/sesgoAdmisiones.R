@@ -80,6 +80,9 @@ g
 # E M 94" porcentaje de aceptacion de mujeres que aplicaron a E: 24%
 # E H 53" porcentaje de aceptacion de hombres que aplicaron a E: 28%
 
+# porcentaje promedio de aceptacion de mujeres: 48.6 %
+# porcentaje promedio de aceptacion de hombres: 44 %
+
 # sesgos en el rechazo de aplicaciones
 df_rechazados <- df[df$Fue.admitido == "N", ]
 
@@ -101,6 +104,9 @@ g
 # D H 138" porcentaje de rechazo de hombres que aplicaron a D: 67%
 # E M 94" porcentaje de rechazo de mujeres que aplicaron a E: 76%
 # E H 53" porcentaje de rechazo de hombres que aplicaron a E: 72%
+
+# porcentaje promedio de rechazo de mujeres: 51.4 %
+# porcentaje promedio de rechazo de hombres: 56 %
 
 palet_colors <- c("#77DD77", "#FF6961")
 # falta contestar, de todos los que aplicaron (por genero) que porcentaje fue admitido
