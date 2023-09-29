@@ -6,4 +6,4 @@
 
 Podemos notar que el sesgo a la aplicación de la escuela no puede ser medido con un solo parámetro, este único parámetro podría ser "número de aplicantes a la escuela" y preguntarnos si aplican más hombres o mujeres. Si ese fuera el caso entonces esta gráfica sería suficiente:
 
-<img src="#aplicantesporgenero.png" width="500" height="500">
+<img src="https://github.com/Carlos-Elias-Riv/examen_posicionamiento_carlos/blob/main/section_4/%23aplicantesporgeneroporfacultad.png" width="500" height="500">
