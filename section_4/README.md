@@ -64,4 +64,4 @@ proporciones mencionadas:
 
 <img src="https://github.com/Carlos-Elias-Riv/examen_posicionamiento_carlos/blob/main/section_4/%23proporcionesdeadmisionporgeneroporfacultad.png" width="550" height="500"/>
 
-<img src="https://github.com/Carlos-Elias-Riv/examen_posicionamiento_carlos/blob/main/section_4/%23proporciondeadmisionporgenero.png" width="550" height="500"/>
+<img src="https://github.com/Carlos-Elias-Riv/examen_posicionamiento_carlos/blob/main/section_4/proporciondeadmisionporgenero.png" width="550" height="500"/>
