@@ -108,10 +108,10 @@ g
 # porcentaje promedio de rechazo de mujeres: 51.4 %
 # porcentaje promedio de rechazo de hombres: 56 %
 
-palet_colors <- c("#77DD77", "#FF6961")
+palet_colors <- c("#FF6961", "#77DD77")
 # falta contestar, de todos los que aplicaron (por genero) que porcentaje fue admitido
 g <- ggplot(df, aes(x=Sexo)) +
-  scale_fill_manual(name= "Admitido", labels = c("Sí", "No"), values = palet_colors)+
+  scale_fill_manual(name= "Admitido", labels = c("No", "Sí"), values = palet_colors)+
   facet_wrap(~Facultad.a.la.que.aplicó) +
   geom_bar(aes(fill=Fue.admitido)) +
   labs(title = "De todos los aplicantes por género que proporción fue admitida",
@@ -119,7 +119,7 @@ g <- ggplot(df, aes(x=Sexo)) +
 g
 
 g <- ggplot(df, aes(x=Sexo)) +
-  scale_fill_manual(name= "Admitido", labels = c("Sí", "No"), values = palet_colors)+
+  scale_fill_manual(name= "Admitido", labels = c("No", "Sí"), values = palet_colors)+
   geom_bar(aes(fill=Fue.admitido)) +
   labs(title = "De todos los aplicantes por género que proporción fue admitida")
 g
