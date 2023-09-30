@@ -1,0 +1,5 @@
+# Explicación código para el problema 3
+
+Este problema fue resuelto usando Stacks y recursividad. El algoritmo para resolver el problema es básicamente el siguiente: 
+
+La primera palabra (la que se quiere transformar a la segunda) se va recorriendo y cada una de las letras se va metiendo al stack. Cuando el último elemento de la pila es igual a la primera letra de la segunda palabra se tienen dos casos: para el primero, se extrae el último elemento de la pila (función pop) y repetimos el algoritmo desde el principio, se avanza en la posición de la segunda letra que queremos transformar (empezamos con pos2 = 0, después de hacer este paso será pos2 = 1) y a la nueva palabra se le agrega la letra extraída de la pila, para el segundo caso se espera conseguir otra letra igual entonces se mete al stack la siguiente letra de la palabra1 (push(word[pos1])). Se siguen estos pasos hasta que la nueva palabra (neword) sea igual a la palabra2 (word2) o hasta que ya no se pueda recorrer la palabra1.
