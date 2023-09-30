@@ -1,58 +1,63 @@
+# creamos una implementación básica pero muy útil de un stack
 class Stack():
     def __init__(self):
         self.stack = []
         self.head = ""
         self.size = 0
+        # este atributo es el que ayudara al resolver el problema, pues guarda las operaciones a imprimir
         self.operaciones = []
 
     
-    # para crear una copia del stack
+    # para crear una copia del stack, esto es útil para la parte recursiva del código de abajo
     def copy(self, pila):
         self.stack = pila.stack.copy()
         self.head = pila.head
         self.size = pila.size
         self.operaciones = pila.operaciones.copy()
 
+    # meter un elemento a la pila
     def push(self, elem):
         self.head = elem
         self.stack.append(elem)
         self.size += 1
         self.operaciones.append("i")
 
+    # revisa si la pila está vacía
     def isEmpty(self):
         return self.size == 0
 
+    # regresa el head (FILO) si es que la pila no esta vacía
     def pop(self):
         if not self.isEmpty():
             self.operaciones.append("o")
             value = self.stack.pop(-1)
             self.size -= 1
+            # siempre que se haga un pop se tiene que ajustar el head
             if not self.isEmpty():
                 self.head = self.stack[-1]
             else:
                 self.head = ""
             return value
-
+        # es un error tratar de quitar el head si la pila esta vacía
         else: 
             raise Exception("Pila vacia")
 
     
 
-# ideas: 
-# podré hacer que el stack tenga memoria de las operaciones que se han hecho con ella? valdrá la pena?
-# tener un dictionary que sepa las ocurrencias de cada letra para no tener que buscarla si ya no va a haber
 
-
-# condiciones que sabemos:
-# no abro ramas hasta que el head == la letra en la que voy en word2
+# explicación a grandes rasgos del código: 
+# En la parte no recursiva se va metiendo letras de word1 a la pila si el head != la letra en la que voy en word2
+# No abro ramas hasta que el head == la letra en la que voy en word2 (word2[pos2])
 #   |
 #   |
 #   v
-# (*) [AQUI RECURSIVO] las ramas que abro son dos: 1. meter y sacar la letra. 2. avanzar esperando encontrar otra igual
-# meto al stack SIEMPRE sin preguntar, a menos de que pase el caso de arriba
-# [no hay recursividad] si el head != la letra en la que voy avanzo
-# [caso base] si me termine el word1 regreso una lista vacia
-# es posible que después de sacar una letra del stack tenga el caso (*)
+# (*) [AQUI RECURSIVO] las ramas que abro son dos: 1. sacar la letra. 2. avanzar esperando encontrar otra igual
+# [caso fracaso] si me termine el word1 regreso None
+# tambien se va construyendo neword con las letras que van saliendo del stack, pues estas nunca regresan
+# resp va acumulando las respuestas de casos base
+# pos1 mantiene registro de en que letra se está de word1 y pos2 análogo pero para word2
+
+
 
 
 # word1 –transformar--> word2 desde la posicion=pos
@@ -75,13 +80,12 @@ def allposibleseqRec(word1, word2, pos1, pos2, neword, pila, resp):
             # si no pude es caso fracaso
             else: 
                 return 
+
     # caso base exito
     if neword == word2:
         resp.append(pila.operaciones)
         return
     
-    
-   
     
     # mientras el head sea distinto de la letra en la que voy de la segunda meto al stack
     while pila.head != word2[pos2] and pos1 < len(word1):
