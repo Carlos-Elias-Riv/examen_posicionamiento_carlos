@@ -64,7 +64,6 @@ class Stack():
 # neword es la palabra que se debe volver word2
 def allposibleseqRec(word1, word2, pos1, pos2, neword, pila, resp):
     # caso base fracaso
-    # puede ser tambien fracaso con pos2 >= len(word2)?
     if pos1 >= len(word1):
         if pos1 > len(word1):
             return 
