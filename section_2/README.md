@@ -1,0 +1,3 @@
+# Solución problema 2
+
+Para este problema la solución fue muy simple. Creé una función llamada solidifyText, por el contexto del problema que parecía aludir a solidifcar contraseñas. Lo que hace la función es iterar sobre todos los caractéres del texto que se le da y realiza las operaciones correspondientes. Si es una letra aplica el circular shift y dependiendo en que posición esté la pone en mayúsculas o minúsculas, si es un número encuentra su complemento a 9 y lo sustituye por este. Al final de la función simplemente "reversea" el arreglo que fue recibiendo todos los caracteres transformados, para poder regresar el texto con las transformaciones y en reversa. Todos los caracteres que no son numeros o letras los ignora. 
