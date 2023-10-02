@@ -1,0 +1,7 @@
+## Verificación de titulados ITAM
+
+Para esta sección usé un webscrapper con selenium y chrome, pues es con lo que he trabajado las veces que he tenido que hacer webscraping. 
+Sin embargo sé que es complicado hacer que el mismo scraper funcione en producción, por lo que una vez que se hizo el webscraping escribí el resultado en un json, de todas formas si un diver necesitara scrappear otra vez la página solamente necesitaría instalar un chromedriver y pasar el path donde lo tenga instalado. La clase ItamScrapper es la que se encargó de hacer el scrapeo de los datos verídicos según la página del itam. Por otro lado la clase RevisorItam es la encargada de resolver el problema planteado en la sección, esta clase depende de dos datos principales, el diccionario con la información verídica, scrapeada por ItamScrapper y el csv con la información a verificar (el csv dado por el cliente). 
+Finalmente cree un fileprueba.csv para probar los resultados y una vez corrido el código en ```main.py``` se escribe un nuevo csv llamado deep_diverresp.csv que contiene las respuestas del código al csv dado. 
+
+Para poder ejecutar ```main.py``` hay dos opciones comentadas en el archivo, una opción es correr el scraper otra vez, pero se necesita instalar chromedriver y cambiar el ```driverpath``` por el path donde el chromedriver esté instalado y la segunda opción es usando el json llamado ```datosItam.json```, sin hacer el scrapeo desde cero. El resultado es el mismo en ambos casos. 
