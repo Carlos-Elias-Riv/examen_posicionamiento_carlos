@@ -4,10 +4,33 @@ import json
 
 
 class LimpiadorPalabras():
+    """
+    Una clase para limpiar strings a lo largo de todo el proceso 
+
+    Metodos
+    -------
+
+    quitarAcentosyenie(cad):
+        Regresa un string en minusculas, limpio de acentos y enies 
+    """
+
     def __init__(self):
+        """
+        Inicializar la clase
+        """
+
         pass
 
     def quitarAcentosyenie(self, cad: str):
+        """ Regresa un string en minusculas sin acentos ni enies
+
+        Parametros
+        ----------
+        cad: str
+            Un string que contenga acentos o se suponga que tiene acentos o enies
+
+        """
+
         cad = cad.replace('á', 'a')
         cad = cad.replace('é', 'e')
         cad = cad.replace('í', 'i')
@@ -26,59 +49,117 @@ class LimpiadorPalabras():
 
 
 class ItamScrapper():
+    """
+    Una clase para scrappear los datos de titulacion de itamitas
+
+    ...
+
+    Metodos
+    -------
+    obtenerDiccionarioCarreras():
+        Regresa un diccionario con las carreras disponibles en la página dada
+    
+    obtenerDatosItamdeCarreras(carreras)
+        Regresa un diccionario con el nombre y el anio de titulacion de los alumnos de las carreas deseadas
+    
+    """
 
     def __init__(self, website="http://escolar1.rhon.itam.mx/titulacion/programas.asp", driverpath=""):
+        """
+        Parametros
+        ----------
+
+        website: str
+            link de la pagina para scrapear
+        
+        driverpath: str
+            path de donde esta el driver de chrome para hacer el scraping
+        
+        """
+
         self.website = website
         self.path = driverpath
 
 
 
-    def obtenerDiccionarioCarreras(self):
+    def obtenerDiccionarioCarreras(self) -> dict:
+        """ Regresa un diccionario con su posicion en la pagina como llave y valor el nombre de la carrera
+
+        """
+        # se inicializa el diccionario de respuesta
         resp = {}
+        # un limpiador para el nombre de la carrera
         cleaner = LimpiadorPalabras()
+        # se inicializa el driver
         driver = webdriver.Chrome(self.path)
         driver.get(self.website)
+        # iteramos sobre todos los elementos posibles de la tabla 
+        # NOTA: si se llegan a abrir nuevas carreras este rango debería aumentar a 24
         for i in range(2, 23):
+            # se encuentra la carrera y se mapea con su posicion en la pagina
             carr = driver.find_element_by_xpath(f'/html/body/table[2]/tbody/tr/td[1]/table/tbody/tr[{i}]/td/a')
             resp[i] = cleaner.quitarAcentosyenie(carr.text)
         driver.close()
 
         return resp
 
-    def obtenerDatosItamDeCarreras(self, carreras: list): 
+    def obtenerDatosItamDeCarreras(self, carreras: list)-> dict: 
+        """ Regresa un diccionario de las carreras deseadas como llave y como valor dos listas 
+        una con los nombres de los titulados y otra con los anios en que se titularon los alumnos. 
+        Y escribe este diccionario en el workspace como un json 
+
+        Parametros
+        ----------
+        carreras: list
+            Una lista de strings con el nombre de las carreras que se quiere scrappear
+        
+        """
+        # se limpia de caracteres raros la lista dada
         cleaner = LimpiadorPalabras()
         carreras = [cleaner.quitarAcentosyenie(carr) for carr in carreras]
         
-        
+        # se obtiene el diccionario de todas las carreras disponibles en la pagina del itam
         dictcarr = self.obtenerDiccionarioCarreras()
 
-        # economia, mates aplicadas, actuaria, derecho y relaciones internacionales
+        # inicializar el driver para obtener los datos de los alumnos, nombre y anio
         driver = webdriver.Chrome(self.path)
         driver.get(self.website)
 
+        # inicializar la respuesta
         resp = {}
+        # un arreglo para iterar sobre la posicion de las carreras que nos interesan
         interes = []
+        # para cada una de las carreras posibles obtenemos solamente aquellas que nos interesan
         for elem in dictcarr:
             # significa que es de las carreras de interes
             if dictcarr[elem] in carreras: 
                 resp[dictcarr[elem]] = []
                 interes.append(elem)
 
+        # iteramos sobre la posicion de las carreras en la pagina del itam
         for i in interes:
+            # entramos a la subpagina de las carreras
             carr = driver.find_element_by_xpath(f'/html/body/table[2]/tbody/tr/td[1]/table/tbody/tr[{i}]/td/a')
             carr.click()
+            # los alumnos en la pagina empiezan numerados desde el 2
             alumno = 2
+            # inicializamos los arreglos que iran como valor en el diccionario que se regresa
             respnames = []
             respanios = []
             hayalums = True
+            # como no sabemos cuantos alumnos hay hacemos un while con un try except dentro, para cuando ya no haya
             while hayalums: 
                 try:
+                    # obtenemos el nombre del alumno
                     name = driver.find_element_by_xpath(f'/html/body/table[2]/tbody/tr[{alumno}]/td[1]')
-                    # si el nombre viene con acentos se los quitamos
+                    # si el nombre viene con acentos o enies se los quitamos
                     name = cleaner.quitarAcentosyenie(name.text)
+                    # obtenemos el anio en que se tituló ese alumno
                     anio = driver.find_element_by_xpath(f'/html/body/table[2]/tbody/tr[{alumno}]/td[2]')
                     anio = anio.text
                     alumno += 1
+                    # notemos que la posicion del nombre corresponde a la misma posicion del anio
+                    # esto implica que si se altera el orden de una lista se debe hacer la misma alteracion a la otra lista
                     respnames.append(name)
                     respanios.append(anio)
                     
@@ -86,20 +167,23 @@ class ItamScrapper():
                     
                     hayalums = False
                     pass
+            # mapeamos carrera: [[nombres alumnos], [anios alumnos]]
             resp[dictcarr[i]].append(respnames)
             resp[dictcarr[i]].append(respanios)
             
-
+            # regresamos a la pagina anterior para poder avanzar a la siguiente carrera
             driver.back()
         
 
 
         driver.close()
+
+        # para no tener que scrappear cada que se corra el codigo podemos escribir este diccionario en un json
         with open("datosItam.json", "w") as ofile:
             json.dump(resp, ofile)
 
         
-
+        # regresa el diccionario con carrera: [[nombres alumnos], [anios alumnos]]
         return resp
 
 
