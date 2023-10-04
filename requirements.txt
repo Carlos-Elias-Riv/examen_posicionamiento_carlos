@@ -1,0 +1,6 @@
+pandas
+selenium
+sendgrid
+boto3
+psycopg2
+dash
